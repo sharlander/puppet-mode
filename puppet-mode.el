@@ -1052,8 +1052,9 @@ for each entry."
   (let ((map (make-sparse-keymap)))
     ;; Editing
     (define-key map (kbd "C-c C-a") #'puppet-align-block)
-    (define-key map (kbd "C-c C-'") #'puppet-toggle-string-quotes)
-    (define-key map (kbd "C-c C-;") #'puppet-clear-string)
+    (define-key map (kbd "C-c C-t") #'puppet-toggle-string-quotes)
+    (define-key map (kbd "C-c C-d") #'puppet-clear-string)
+    (define-key map (kbd "C-c C-q") #'puppet-quote-string)
     (define-key map (kbd "$") #'puppet-interpolate)
     ;; Navigation
     (define-key map (kbd "C-c C-j") #'imenu)
@@ -1170,6 +1171,15 @@ for each entry."
            nil)
           ((not (string= meat match-result))
            (list pos-start pos-end (list match-result) :exclusive 'no)))))
+
+(defun puppet-quote-string ()
+  "set quotes around the word before cursor"
+  (interactive)
+  (let ()
+    (backward-word)
+    (insert "'")
+    (forward-word)
+    (insert "'")))
 
 (provide 'puppet-mode)
 
